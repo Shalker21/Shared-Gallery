@@ -8,9 +8,18 @@
 
 		public function index() {
 			$data = [
-				'title' => 'home/index'
+				'title' => 'Welcome To Shared Gallery Site',
+				'description' => 'Share your art with others!'
 			];
 
 			return $this->view('home/index', $data);
+		}
+
+		public function about() {
+			$data = [
+				'description' => 'Shared Gallery web site is made for artists like you. Share your art and let world see what you created!'
+			];
+
+			return $this->view('home/about', $data);
 		}
 	}

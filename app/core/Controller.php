@@ -9,6 +9,6 @@
 		}
 
 		public function view($ViewName, $data = []) {
-			file_exists('app/views/' . $ViewName . '.php') ? require_once 'app/views/' . $ViewName . '.php': die("NO");
+			file_exists('app/views/' . $ViewName . '.php') ? require_once 'app/views/' . $ViewName . '.php': die("View does not found!");
 		}
 	}

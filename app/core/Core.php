@@ -22,15 +22,14 @@
 			// 	print_r($url);
 			// }
 			$url = $this->getUrl();
-				
-			// check if hand input url[0] exists
-			if(isset($url[0]) && ucfirst($url[0]) != $this->currController) {
-				die('<h1>404 - The Controller Can Not Be Found</h1>');
-			} 
 
 			if(file_exists('app/controllers/' . ucfirst($url[0]) . '.php')) {
 				$this->currController = ucfirst($url[0]);
 				unset($url[0]);
+			} else {
+				if(isset($url[0])) {
+					die("404");
+				}
 			}
 
 			require_once 'app/controllers/' .ucfirst($this->currController) . '.php';
@@ -48,6 +47,7 @@
 
 			$this->params = $url ?  array_values($url) : [];
 
+			// call callback current controller and method with parameters(if set)
 			call_user_func_array([$this->currController, $this->currMethod], $this->params);
 		}
 
