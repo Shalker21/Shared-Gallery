@@ -12,7 +12,9 @@
 		private $db;
 		private $stmt;
 
-		public function __construct() {
+		protected static $instance;
+
+		protected function __construct() {
 			try {
 				$this->db = new PDO(
 					'mysql:host='.$this->host.';dbname='.$this->dbname,
