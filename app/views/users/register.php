@@ -50,6 +50,7 @@
 								<div class="col-xs-6 col-sm-6 col-md-6">
 									<div class="form-group">
 										<label for="password">Password:</label>
+										<small class="text-info">Atleast 8 characters(numbers and chars)</small>
 										<input type="password" name="password" id="password" class="form-control input-sm <?php echo !empty($data['password_err']) ? 'border-danger' : ''; ?>" placeholder="Password" >
 										<small class="text-danger"><?=$data['password_err']?></small>
 

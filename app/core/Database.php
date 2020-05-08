@@ -11,10 +11,9 @@
 		
 		private $db;
 		private $stmt;
+		private static $instances = [];
 
-		protected static $instance;
-
-		protected function __construct() {
+		public function __construct() {
 			try {
 				$this->db = new PDO(
 					'mysql:host='.$this->host.';dbname='.$this->dbname,
@@ -27,8 +26,22 @@
 			}
 		}
 
+		// singleton db class
+		public static function getInstance() {
+			$subClass = static::class; 
+			if (!isset(self::$instances[$subClass])) {
+				// instance db object
+				self::$instances[$subClass] = new static;
+			}
+			return self::$instances[$subClass];
+		}
+
 		public function query($sql_query) {
 			$this->stmt = $this->db->prepare($sql_query);
+		}
+
+		public function bindParam($string, $param) {
+			$this->stmt->bindParam($string, $param);
 		}
 		
 		public function execute() {
@@ -45,9 +58,8 @@
 			return $this->stmt->fetchAll(PDO::FETCH_OBJ);
 		}
 
+		public function rowCount() {
+			return $this->stmt->rowCount();
+		}
 
-
-
-
-		
 	}
