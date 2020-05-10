@@ -36,10 +36,40 @@
 	}
 
 	function isLoggedIn() {
-		if(isset($_SESSION['user_id'])) {
-			return true;
-		} else {
+		if(!isset($_SESSION['user_id'])) {
 			return false;
+		} else {
+			return true;
 		}
+	}
+
+	function rememberMe() {
+		if(!isset($_COOKIE['remember_me'])) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	function encryptCookie($user_id) {
+		$userId = $user_id;
+		$hash = md5(rand(10000, 99999) . SECRET);
+		$secondHash = md5(SECRET . $hash . $userId);
+		// check if this has any sence because user id is last data after - sign
+		$cookieValue = base64_encode($secondHash . '-' . $hash . '-' . $userId);
+		 
+		return $cookieValue;
+	   }
+	   
+	function decryptCookie($cookieValue) {
+	$data = explode('-', base64_decode($cookieValue));
+	
+	if($data[0] !== md5(SECRET . $data[1] . $data[2])) {
+		die('Cookie is not equal');
+	} else {
+		// user_id
+		return $data[2];
+	}
+	
 	}
 

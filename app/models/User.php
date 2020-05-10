@@ -64,6 +64,19 @@
 			}
 		}
 
+		public function getUserById($id) {
+			$this->db->query('SELECT * FROM user WHERE id = :id');
+			$this->db->bindParam(':id', $id);
+
+			$user = $this->db->resultSingle();
+
+			if($this->db->rowCount() > 0) {
+				return $user;
+			} else {
+				return false;
+			}
+		}
+
 		public function getCode($number) {
 			$this->db->query('SELECT * FROM user WHERE code_number = :number');
 			$this->db->bindParam(':number', $number);

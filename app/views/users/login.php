@@ -39,7 +39,7 @@
 							</div>
 
 							<div class="form-group ml-4">
-								<input type="checkbox" name="remember_me" class="form-check-input" id="remember_me">
+								<input type="checkbox" name="remember_me" value="1" class="form-check-input" id="remember_me">
 								<label class="form-check-label" for="exampleCheck1">Remember Me</label>
 							</div>
 							

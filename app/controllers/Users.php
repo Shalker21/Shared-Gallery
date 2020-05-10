@@ -6,7 +6,6 @@ use PHPMailer\PHPMailer\SMTP;
 require_once 'app/phpmailer/vendor/autoload.php';
 
 class Users extends Controller {
-	
 
 		private $data = [
 			'first_name' => '',
@@ -25,10 +24,16 @@ class Users extends Controller {
 		];
 
 		public function __construct() {
+			
+
 			$this->userModel = $this->model('User');
 		}
 		
 		public function register() {
+			if(isLoggedIn()) {
+				redirect('images');
+				exit;
+			}
 
 			if($_SERVER['REQUEST_METHOD'] == 'POST') {
 				$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -136,10 +141,27 @@ class Users extends Controller {
 		}
 
 		public function login() {
+			// SESSION set
+			if(isLoggedIn()) {
+				redirect('images');
+			}
+
+			// COOKIE remember me set
+			if(rememberMe()) {
+				$userId = decryptCookie($_COOKIE['remember_me']);
+				
+				$user = $this->userModel->getUserById($userId);
+
+				$this->loginSession($user);
+				exit;
+			}
+			
 			ini_set('memory_limit', '-1');
+
 			$data = [
 				'email' => '',
 				'password' => '',
+				'remember_me' => '',
 				'email_err' => '',
 				'password_err' => '',
 				'error' => ''
@@ -175,24 +197,32 @@ class Users extends Controller {
 						if($user->first_login == true) {
 							redirect('users/code');
 						}
-						// create id session and redirect  
-						$this->loginSession($user);
+
+						// login user 
+						!isset($_POST['remember_me']) ? $this->loginSession($user) : $this->loginSession($user, true);
+						
 					}
 				}
 				return $this->view('users/login', $data);
 			}
-			return $this->view('users/login', $data);
+			return $this->view('users/login', $data);	
 		}
 
-		public function loginSession($user) {
-			$_SESSION['user_id'] = $user->id;
+		public function loginSession($user, $cookie = null) {
+			if($cookie) {
+				$value = encryptCookie($user->id);
+				setcookie('remember_me', $value, time() + 86400); // 1 day
+			}
 
+			$_SESSION['user_id'] = $user->id;
       		redirect('images');
 		}
 
 		public function logout() {
 			unset($_SESSION['user_id']);
 			session_destroy();
+
+			setcookie('remember_me', '', time() - 86400); // 1 day
 
 			redirect('home');
 		}

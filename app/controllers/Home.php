@@ -3,7 +3,10 @@
 	class Home extends Controller {
 
 		public function __construct() {
-
+			if(isLoggedIn() || isset($_COOKIE['remember_me'])) {
+				redirect('images');
+				exit;
+			}
 		}
 
 		public function index() {
