@@ -4,7 +4,7 @@
 <div class="container">	
 
 	<h1 class="text-center p-3 text-primary">IMAGES</h1>
-	<a href="<?=URLROOT?>/" class="btn btn-primary">Add Images</a>
+	<a href="<?=URLROOT?>/images/createPost" class="btn btn-primary">Add Images</a>
 	<div class="row border rounded p-3 my-3">
 		<?php for($i = 0; $i < 10; $i++) : ?>
 			<div class="col-md-4">

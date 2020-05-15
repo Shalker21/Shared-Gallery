@@ -25,7 +25,7 @@
 				die("Database Connection Error: " . $err->getMessage());
 			}
 		}
-
+		
 		// singleton db class
 		public static function getInstance() {
 			$subClass = static::class; 
@@ -60,6 +60,10 @@
 
 		public function rowCount() {
 			return $this->stmt->rowCount();
+		}
+
+		public function lastInsertId() {
+			return $this->db->lastInsertId();
 		}
 
 	}
