@@ -17,11 +17,10 @@
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				<a class="btn btn-primary px-5" href="#">Show</a>
+				<button onclick="ajaxRequest()" class="btn btn-primary px-5">Show</button>
 			</div>
 			<div class="col-md-6" id="image_number">
-				NUMBER
-				<!-- Here goes number of all images in database -->
+				NUMBER: <span id="imageNumber"></span>
 			</div>
 		</div>
 		
@@ -29,59 +28,23 @@
 
 	<div class="row">
 		<div class="col-md-12 text-center m-3">
-		<h3>Must liked images on site</h3>
+		<h3>10 Must liked images on site</h3>
 		<hr>	
 		</div>
-		<div class="col-md-4">
-        	<div class="card mb-4 shadow-sm">
-            	<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+		<?php $number = 0;?>
+		<?php foreach($data['images'] as $image): ?>
+			<?php 
+				$number++;
+				if($number>10) {
+				break;
+				}
+			?>
+			<div class="col-md-4">
+				<div class="card mb-4 shadow-sm">
+					<img src="<?php echo URLROOT."/public/images/".$image->file_name; ?>" height="100%" width="100%">
+				</div>
 			</div>
-		</div>
-		<div class="col-md-4">
-        	<div class="card mb-4 shadow-sm">
-            	<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-			</div>
-		</div>
-		<div class="col-md-4">
-        	<div class="card mb-4 shadow-sm">
-            	<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-			</div>
-		</div>
-		<div class="col-md-4">
-        	<div class="card mb-4 shadow-sm">
-            	<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-			</div>
-		</div>
-		<div class="col-md-4">
-        	<div class="card mb-4 shadow-sm">
-            	<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-			</div>
-		</div>
-		<div class="col-md-4">
-        	<div class="card mb-4 shadow-sm">
-            	<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-			</div>
-		</div>
-		<div class="col-md-4">
-        	<div class="card mb-4 shadow-sm">
-            	<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-			</div>
-		</div>
-		<div class="col-md-4">
-        	<div class="card mb-4 shadow-sm">
-            	<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-			</div>
-		</div>
-		<div class="col-md-4">
-        	<div class="card mb-4 shadow-sm">
-            	<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-			</div>
-		</div>
-		<div class="col-md-4">
-        	<div class="card mb-4 shadow-sm">
-            	<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-			</div>
-		</div>
+		<?php endforeach; ?>
 	</div>
 
 </div>
@@ -89,4 +52,16 @@
 
 
 <?php require 'app/views/includes/footer.php'; ?>
+
+<script>
+	function ajaxRequest() {
+		$.ajax({
+			type: 'GET',
+			url: '<?=URLROOT?>/app/controllers/Home?function=imageNumber',
+			success: function(data) {
+				$('#imageNumber').html(data);
+			}
+		});
+	}
+</script>
 

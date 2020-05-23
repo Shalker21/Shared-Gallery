@@ -25,11 +25,40 @@
 			$userId = $_SESSION['user_id'];
 			$post = $this->imageModel->getPostById($id);
 			$images_post = $this->imageModel->getPivotTableByPostId($post->id);
-			$images = 
-
+			foreach ($images_post as $value) {
+				$images = $this->imageModel->getImagesByImageId($value->image_id);
+				array_push($data['images'], $images);
+			}
 			$data['title'] = $post->title;
+			$data['description'] = $post->description;
+
 
 			return $this->view('images/single', $data);
+		}
+
+		public function edit($id) {
+			$data = [
+				'title' => '',
+				'description' => '',
+				'images' => [],
+				'title_err' => '',
+				'description_err' => ''
+			];
+			if($_SERVER['REQUEST_METHOD'] == "POST") {
+
+			} else {
+				$post = $this->imageModel->getPostById($id);
+				$data['title'] = $post->title;
+				$data['description'] = $post->description;
+				$data['images'] = $post->description;
+				$images_post = $this->imageModel->getPivotTableByPostId($post->id);
+				foreach ($images_post as $value) {
+					$images = $this->imageModel->getImagesByImageId($value->image_id);
+					array_push($data['images'], $images);
+				}
+				$this->view('images/edit', $data);
+			}
+
 		}
 
 		public function createPost() {

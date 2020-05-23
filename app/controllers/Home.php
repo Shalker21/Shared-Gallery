@@ -7,12 +7,15 @@
 				redirect('images');
 				exit;
 			}
+			$this->imageModel = $this->model('Image');
 		}
 
 		public function index() {
+			$images = $this->imageModel->getAllImages();
 			$data = [
 				'title' => 'Welcome To Shared Gallery Site',
-				'description' => 'Share your art with others!'
+				'description' => 'Share your art with others!',
+				'images' => $images
 			];
 
 			return $this->view('home/index', $data);
@@ -24,5 +27,20 @@
 			];
 
 			return $this->view('home/about', $data);
+		}
+
+		public function imageNumber() {
+			return "KER";
+			if($_SERVER['REQUEST_METHOD'] == 'GET') {
+
+				$images = $this->imageModel->getAllImages();
+				$counter = 0;
+				
+				foreach($images as $image) {
+					$counter++;
+				}
+				return $counter;
+			}
+
 		}
 	}

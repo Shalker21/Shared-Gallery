@@ -70,4 +70,29 @@ class Image {
 			return false;
 		}
 	}
+
+	public function getAllImages() {
+		$this->db->query("SELECT * FROM images");
+
+		$images = $this->db->resultAll();
+
+		if($this->db->rowCount() > 0) {
+			return $images;
+		} else {
+			return false;
+		}
+	}
+
+	public function getImagesByImageId($id) {
+		$this->db->query("SELECT * FROM images WHERE id = :id");
+		$this->db->bindParam(':id', $id);
+
+		$images = $this->db->resultSingle();
+
+		if($this->db->rowCount() > 0) {
+			return $images;
+		} else {
+			return false;
+		}
+	}
 }
