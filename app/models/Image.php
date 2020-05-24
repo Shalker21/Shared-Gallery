@@ -58,6 +58,36 @@ class Image {
 		}
 	}
 
+	public function getAllPosts() {
+		// get posts with images
+		
+		$this->db->query(
+			"SELECT p.id as post_id,
+			i.id as images_id,
+			u.name,
+			p.title,
+			p.description,
+			i.file_name,
+			p.created_at,
+			GROUP_CONCAT(DISTINCT file_name) AS images
+			FROM images_post AS ip
+			INNER JOIN images AS i
+			ON ip.image_id=i.id
+			INNER JOIN posts AS p
+			ON p.id=ip.post_id
+			INNER JOIN user as u
+			ON u.id=ip.user_id
+			GROUP BY post_id");
+
+		$posts = $this->db->resultAll();
+
+		if($this->db->rowCount() > 0) {
+			return $posts;
+		} else {
+			return false;
+		}
+	}
+
 	public function getPivotTableByPostId($id) {
 		$this->db->query("SELECT * FROM images_post WHERE post_id = :post_id");
 		$this->db->bindParam(':post_id', $id);

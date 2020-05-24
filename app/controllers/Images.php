@@ -13,7 +13,16 @@
 			$this->userModel = $this->model('user');
 		}
 		public function index() {
-			return $this->view('images/index');
+			// get all posts
+			$data = $this->imageModel->getAllPosts();
+
+			return $this->view('images/index', $data);
+		}
+
+		public function ajaxRequest() {
+			if($_POST['post_id']) {
+				die("USLO JE");
+			}
 		}
 
 		public function single($id) {
